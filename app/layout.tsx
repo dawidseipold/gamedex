@@ -1,18 +1,30 @@
-import './globals.css'
+import { ServerThemeProvider } from '@wits/next-themes';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
-      <body>{children}</body>
-    </html>
-  )
+// Components
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+import '../src/styles/globals.css';
+
+interface IProps {
+  children: React.ReactNode;
 }
+
+const RootLayout = ({ children }: IProps) => {
+  return (
+    <ServerThemeProvider attribute="class">
+      <html lang="en">
+        <head />
+        <body className="flex flex-col gap-y-4">
+          <Header />
+
+          <main className="container-auto">{children}</main>
+
+          <Footer />
+        </body>
+      </html>
+    </ServerThemeProvider>
+  );
+};
+
+export default RootLayout;
